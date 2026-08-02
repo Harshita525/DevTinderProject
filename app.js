@@ -1,26 +1,25 @@
 const express = require("express");
 const app = express();
-const {adminAuth} = require("./middlewares/auth")
+const { adminAuth } = require("./middlewares/auth")
 
-app.use("/admin", adminAuth)
+app.get("/getUser", (req, res) => {
+    try {
+        throw new Error("dekdke");
+        res.send("user data sent")
+    } catch (err) {
+        res.status(500).send("some err contact support for help")
 
-app.get("/admin/getAllData", (req, res) => {
-    // if the request is authorized
-    res.send("send all data")
-});
+    }
 
+})
 
-app.get("/admin/deleteUser", (req, res) => {
-    // if the request is authorized
-    res.send("delete user")
+app.use("/", (err, req, res, next) => {
+    if (err) {
+        // log your err
 
-});
-
-app.get("/user/deleteUser", (req, res) => {
-    // if the request is authorized
-    res.send("delete user")
-
-});
+        res.status(500).send("Something went wrong!")
+    }
+})
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000")
