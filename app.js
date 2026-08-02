@@ -1,19 +1,27 @@
-const express =  require("express");
-
+const express = require("express");
 const app = express();
+const {adminAuth} = require("./middlewares/auth")
 
-app.get("/user", (req,res)=>{
-    res.send({
-        firstName: "Harshita",
-        lastName: "Singh"
-    })
-})
+app.use("/admin", adminAuth)
 
-app.post("/user", (req,res)=>{
-    console.log("Save data to databse");
-    res.send("Data send to database")
-})
+app.get("/admin/getAllData", (req, res) => {
+    // if the request is authorized
+    res.send("send all data")
+});
 
-app.listen(3000,()=>{
+
+app.get("/admin/deleteUser", (req, res) => {
+    // if the request is authorized
+    res.send("delete user")
+
+});
+
+app.get("/user/deleteUser", (req, res) => {
+    // if the request is authorized
+    res.send("delete user")
+
+});
+
+app.listen(3000, () => {
     console.log("Server is running on port 3000")
 })
